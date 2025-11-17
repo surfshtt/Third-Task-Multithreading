@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -40,7 +41,6 @@ public class FerryWarehouse {
         }
     }
 
-
     public boolean addToCarsQueue(AbstractCar car) throws InterruptedException {
         lock.lock();
         try {
@@ -48,6 +48,7 @@ public class FerryWarehouse {
             WaitingCar waitingCar = new WaitingCar(car, condition);
 
             carsQueue.addLast(waitingCar);
+            TimeUnit.SECONDS.sleep(1);
             logger.info("Car {} was add to the queue", car.getId());
 
             while (!waitingCar.allowed) {
@@ -72,7 +73,7 @@ public class FerryWarehouse {
     public void backToQueue(WaitingCar waitingCar) {
         lock.lock();
         try {
-            carsQueue.addLast(waitingCar);
+            carsQueue.addFirst(waitingCar);
         } finally {
             lock.unlock();
         }
