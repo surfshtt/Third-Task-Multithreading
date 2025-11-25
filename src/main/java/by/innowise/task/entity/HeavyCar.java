@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.concurrent.Callable;
 
 public class HeavyCar extends AbstractCar implements Callable<Boolean> {
-
     private static final Logger logger = LogManager.getLogger();
 
     public HeavyCar(long id) {

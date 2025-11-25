@@ -10,7 +10,6 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class FerryWarehouse {
-
     private static final Logger logger = LogManager.getLogger();
 
     private final ReentrantLock lock = new ReentrantLock(true);
